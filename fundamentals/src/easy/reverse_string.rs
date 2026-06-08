@@ -9,5 +9,11 @@
 */
 
 pub fn reverse_string(s: &str) -> String {
-    todo!()
+
+    let reversed = s.chars().rev().collect();
+
+
+  return reversed;
+
+    
 }

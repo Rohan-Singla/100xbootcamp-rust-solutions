@@ -8,5 +8,11 @@
 */
 
 pub fn swap_tuple(t: (i32, i32)) -> (i32, i32) {
-    todo!()
+
+      let a = t.0;
+      let b = t.1;
+
+      return (b,a);
+
+
 }

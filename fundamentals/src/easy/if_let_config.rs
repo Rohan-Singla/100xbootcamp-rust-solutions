@@ -10,5 +10,11 @@
 */
 
 pub fn get_config(value: Option<String>) -> String {
-    todo!()
+    
+  if value.is_some() {
+    return value.unwrap();
+  }else {
+    return "default".to_string();
+  }
+
 }
