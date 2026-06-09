@@ -15,18 +15,28 @@ pub struct Account {
 
 impl Account {
     pub fn new(initial: f64) -> Self {
-        todo!()
+
+        Self { balance: initial }
     }
 
     pub fn deposit(&mut self, amount: f64) {
-        todo!()
+
+        self.balance += amount;
     }
 
     pub fn withdraw(&mut self, amount: f64) -> Result<(), String> {
-        todo!()
+        
+        if amount > 0 as f64 && self.balance >= amount{
+            self.balance -= amount;
+
+            return Ok(())
+        }else {
+            return Err(("failed".to_string()));
+        }
+
     }
 
     pub fn balance(&self) -> f64 {
-        todo!()
+        return self.balance;
     }
 }

@@ -8,7 +8,8 @@
   Run the tests for this problem with:
     cargo test --test memory_layout_test
 */
+use std::mem::{size_of, align_of};
 
 pub fn type_info<T>() -> (usize, usize) {
-    todo!()
+    return (size_of::<T>(), align_of::<T>())
 }

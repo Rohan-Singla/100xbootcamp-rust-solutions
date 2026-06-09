@@ -9,5 +9,7 @@
 */
 
 pub fn compute_checksum(data: &[u8]) -> u8 {
-    todo!()
+    let a = data.iter().fold(0, |acc, &b| acc ^ b);
+
+    return a;
 }
