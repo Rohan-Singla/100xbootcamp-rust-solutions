@@ -17,5 +17,34 @@ pub enum Operation {
 }
 
 pub fn calculate(op: Operation) -> Result<f64, String> {
-    todo!()
+
+    match op {
+
+        Operation::Add(a,b) => {
+            Ok(a+b)
+        }
+
+
+        Operation::Sub(a,b) => {
+            Ok(a-b)
+        }
+
+        Operation::Mul(a,b) => {
+            Ok(a*b)
+        }
+
+        Operation::Div(a,b) => {
+
+            if (b == 0 as f64){
+                return Err("noT DIVISBLE BY 0".to_string());
+            }
+
+            Ok(a/b)
+        }
+
+        
+
+
+    }
+     
 }

@@ -10,5 +10,14 @@
 */
 
 pub fn longest<'a>(s1: &'a str, s2: &'a str) -> &'a str {
-    todo!()
+
+    if(s1.len() > s2.len()) {
+
+      return s1;
+
+    }else if (s2.len() > s1.len()){
+      return s2;
+    }else {
+      return s1
+    }
 }

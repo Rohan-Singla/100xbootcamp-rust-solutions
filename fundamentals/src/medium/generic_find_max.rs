@@ -10,5 +10,32 @@
 */
 
 pub fn find_max<T: PartialOrd>(items: &[T]) -> Option<&T> {
-    todo!()
+
+  
+  if items.is_empty(){
+    return None;
+  }
+  
+  else{
+    let mut max: &T = &items[0];
+
+    for i in items {
+      
+      if (i > max) {
+        
+        max  = i;
+        
+      }
+      
+    }
+    
+    return Some(max);
+    
+    
+  }
+  
+
+
+
+
 }

@@ -9,5 +9,14 @@
 */
 
 pub fn running_sum(v: Vec<i32>) -> Vec<i32> {
-    todo!()
+
+    let mut newvec: Vec<i32> = Vec::with_capacity(v.len());
+
+    let mut sum = 0;
+    
+    for i in v {
+        sum += i;
+        newvec.push(sum);
+    }
+    newvec
 }
