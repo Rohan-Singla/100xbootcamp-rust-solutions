@@ -19,24 +19,32 @@ pub struct Phonebook {
 
 impl Phonebook {
     pub fn new() -> Self {
-        todo!()
+        Self { entries: HashMap::new() }
     }
 
     pub fn add(&mut self, name: &str, phone: &str) {
-        todo!()
+        self.entries.insert(name.to_string(), phone.to_string());
     }
 
     pub fn lookup(&self, name: &str) -> Option<&String> {
-        todo!()
+        self.entries.get(name)
     }
 
     pub fn remove(&mut self, name: &str) -> bool {
-        todo!()
+        self.entries.remove(name).is_some()
     }
 }
 
 impl fmt::Display for Phonebook {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        todo!()
+        let mut entries: Vec<_> = self.entries.iter().collect();
+        entries.sort_by(|a, b| a.0.cmp(b.0));
+        for (i, (name, phone)) in entries.iter().enumerate() {
+            if i > 0 {
+                writeln!(f)?;
+            }
+            write!(f, "{}: {}", name, phone)?;
+        }
+        Ok(())
     }
 }
