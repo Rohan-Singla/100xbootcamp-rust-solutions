@@ -11,10 +11,20 @@
     cargo test --test async_error_handling_test
 */
 
+use std::{thread::sleep, time::Duration};
+
 pub async fn fetch_data(id: u32) -> Result<String, String> {
-    todo!()
+    use tokio::time::{sleep, Duration};
+
+    if id == 0 {
+        return Err("Invalid ID".to_string());
+    } else {
+        sleep(Duration::from_millis(5)).await;
+        Ok(format!("Data_{}", id))
+    }
 }
 
 pub async fn fetch_and_process(id: u32) -> Result<usize, String> {
-    todo!()
+    let data = fetch_data(id).await?;
+    Ok(data.len())
 }

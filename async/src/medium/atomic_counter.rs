@@ -14,5 +14,25 @@ use std::sync::Arc;
 use std::thread;
 
 pub fn atomic_counter() -> i32 {
-    todo!()
+    let counter = Arc::new(AtomicI32::new(0));
+
+    let mut handles = vec![];
+
+    for _ in 0..10 {
+        let counter = Arc::clone(&counter);
+
+        let handle = thread::spawn(move || {
+            for _ in 0..100 {
+                counter.fetch_add(1, Ordering::SeqCst);
+            }
+        });
+
+        handles.push(handle);
+    }
+
+    for handle in handles {
+        handle.join().unwrap();
+    }
+
+    counter.load(Ordering::SeqCst)
 }

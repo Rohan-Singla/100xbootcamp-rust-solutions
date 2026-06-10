@@ -9,9 +9,28 @@
     cargo test --test async_shared_vec_test
 */
 
-use tokio::sync::Mutex;
 use std::sync::Arc;
+use tokio::sync::Mutex;
 
 pub async fn async_shared_vec() -> usize {
-    todo!()
+    let data = Arc::new(Mutex::new(vec![]));
+    let mut handles = Vec::new();
+
+    for _ in 0..5 {
+        let data = Arc::clone(&data);
+        let handle = tokio::spawn(async move {
+            for i in 0..10 {
+                let mut vec = data.lock().await;
+                vec.push(i);
+            }
+        });
+        handles.push(handle);
+    }
+
+    for handle in handles {
+        handle.await.unwrap();
+    }
+
+    let vec = data.lock().await;
+    vec.len()
 }

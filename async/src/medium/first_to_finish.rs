@@ -15,5 +15,8 @@ where
     F1: Future<Output = i32> + Unpin,
     F2: Future<Output = i32> + Unpin,
 {
-    todo!()
+    tokio::select! {
+        value = f1 => value,
+        value = f2 => value,
+    }
 }
