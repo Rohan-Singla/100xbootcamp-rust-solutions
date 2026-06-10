@@ -12,5 +12,22 @@
 use std::thread;
 
 pub fn threaded_sum(v: Vec<i32>) -> i32 {
-    todo!()
+    let halflen = v.len() / 2;
+    let (left, right) = v.split_at(halflen);
+
+    let left_vec = left.to_vec();
+    let right_vec = right.to_vec();
+
+    let left_handle = thread::spawn(move || {
+        left_vec.iter().sum::<i32>()
+    });
+
+    let right_handle = thread::spawn(move || {
+        right_vec.iter().sum::<i32>()
+    });
+
+    let left_sum = left_handle.join().unwrap();
+    let right_sum = right_handle.join().unwrap();
+
+    left_sum + right_sum
 }

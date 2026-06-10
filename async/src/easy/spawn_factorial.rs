@@ -9,5 +9,13 @@
 */
 
 pub async fn spawn_factorial() -> u64 {
-    todo!()
+    let factorial = tokio::spawn(async move {
+        let mut product = 1u64;
+        for i in 1..=5 {
+            product *= i;
+        }
+        product
+    });
+
+    factorial.await.unwrap()
 }

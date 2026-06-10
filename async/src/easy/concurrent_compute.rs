@@ -16,5 +16,9 @@ where
     F1: Future<Output = i32>,
     F2: Future<Output = i32>,
 {
-    todo!()
+
+    let f1res = f1.await;
+    let f2res = f2.await;
+
+    return f1res+f2res;
 }
