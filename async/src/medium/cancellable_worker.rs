@@ -12,9 +12,24 @@
 
 use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::Arc;
-use std::thread;
+use std::thread::{self, sleep};
 use std::time::Duration;
 
 pub fn cancellable_worker() {
-    todo!()
+    let flag = Arc::new(AtomicBool::new(false));
+    let flag_clone = Arc::clone(&flag);
+
+    let handle = thread::spawn(move || {
+        loop {
+            if flag_clone.load(Ordering::SeqCst) {
+                break;
+            }
+            sleep(Duration::from_millis(50));
+        }
+    });
+
+    sleep(Duration::from_millis(50));
+    flag.store(true, Ordering::SeqCst);
+
+    handle.join().unwrap();
 }

@@ -13,10 +13,29 @@
 use tokio::time::{sleep, Duration};
 use std::future::Future;
 
-pub async fn retry_operation<F, Fut, T, E>(mut f: F, max_retries: usize) -> Result<T, E>
+pub async fn retry_operation<F, Fut, T, E>(
+    mut f: F,
+    max_retries: usize,
+) -> Result<T, E>
 where
     F: FnMut() -> Fut,
     Fut: Future<Output = Result<T, E>>,
 {
-    todo!()
+    let mut last_error = None;
+
+    for attempt in 0..=max_retries {
+        match f().await {
+            Ok(value) => return Ok(value),
+
+            Err(err) => {
+                last_error = Some(err);
+
+                if attempt < max_retries {
+                    sleep(Duration::from_millis(10)).await;
+                }
+            }
+        }
+    }
+
+    Err(last_error.unwrap())
 }

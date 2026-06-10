@@ -13,5 +13,24 @@ use std::sync::{Arc, Mutex};
 use std::thread;
 
 pub fn multithreaded_counter() -> i32 {
-    todo!()
+    let count = Arc::new(Mutex::new(0));
+    let mut handles = vec![];
+
+    for _ in 0..10 {
+        let countclone = Arc::clone(&count);
+        let handle = thread::spawn(move || {
+            for _ in 0..100 {
+                let mut val = countclone.lock().unwrap();
+                *val += 1;
+            }
+        });
+        handles.push(handle);
+    }
+
+    for handle in handles {
+        handle.join().unwrap();
+    }
+
+    let final_count = count.lock().unwrap();
+    *final_count
 }
